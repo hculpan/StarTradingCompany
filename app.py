@@ -1,12 +1,19 @@
 import pygame
 import random
 from StarTradingCompany import MainScene, GameState
+import logging
+import traceback
+import sys
+import os
+
+logging.basicConfig(
+    filename='/Users/harryculpan/src/StarTradingCompany/myapp.log',
+    level=logging.INFO,
+    format='%(asctime)s %(message)s',
+    datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 class MainApp:
-    def __init__(self):
-        super().__init__()
-
     def main_loop(self, width, height, fps):
         random.seed()
 
@@ -56,5 +63,8 @@ class MainApp:
             clock.tick(fps)
 
 
-app = MainApp()
-app.main_loop(1200, 871, 30)
+try:
+    app = MainApp()
+    app.main_loop(1200, 871, 30)
+except:
+    logging.error(traceback.format_exc())

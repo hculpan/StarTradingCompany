@@ -1,6 +1,7 @@
 from StarTradingCompany import SceneBase, Sector, Planet, Units, GameState, ResourceManager
 import pygame
 import random
+import logging
 from StarTradingCompany.Planet import *
 
 

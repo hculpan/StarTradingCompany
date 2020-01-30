@@ -2,6 +2,8 @@ from StarTradingCompany import SpriteSheet
 
 import pygame
 import os
+import platform
+import sys
 
 _image_library = {}
 
@@ -18,6 +20,12 @@ _ship_sprite_info = {
 
 _ship_sprite_sheet = None
 
+IMAGES_PATH_PREFIX = 'Resources' + os.sep + 'images' + os.sep
+FONT_PATH_PREFIX = 'Resources' + os.sep + 'fonts' + os.sep
+if platform.system() == "Darwin" and sys.executable.endswith("/app"):
+    IMAGES_PATH_PREFIX = sys.executable[:-4] + os.sep + IMAGES_PATH_PREFIX
+    FONT_PATH_PREFIX = sys.executable[:-4] + os.sep + FONT_PATH_PREFIX
+
 
 class ResourceManager:
     def __init__(self):
@@ -25,7 +33,7 @@ class ResourceManager:
 
         if _ship_sprite_sheet == None:
             _ship_sprite_sheet = SpriteSheet.SpriteSheet(
-                'resources/images/16ShipCollection.png')
+                IMAGES_PATH_PREFIX + '16ShipCollection.png')
 
     def get_image(self, path):
         global _image_library
@@ -39,7 +47,7 @@ class ResourceManager:
             image.set_colorkey((0, 0, 0))
             _image_library[path] = image
         elif image == None:
-            canonicalized_path = "resources" + os.sep + "images" + os.sep + path
+            canonicalized_path = IMAGES_PATH_PREFIX + path
             image = pygame.image.load(canonicalized_path)
             _image_library[path] = image
 
@@ -50,6 +58,6 @@ class ResourceManager:
         font = _font_library.get((font_name, font_size))
         if font == None:
             font = pygame.font.Font(
-                "resources" + os.sep + "fonts" + os.sep + font_name + ".otf", font_size)
+                FONT_PATH_PREFIX + font_name + ".otf", font_size)
             _font_library[(font_name, font_size)] = font
         return font
