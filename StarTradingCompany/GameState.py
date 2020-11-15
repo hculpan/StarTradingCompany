@@ -11,11 +11,12 @@ class GameState:
         self.in_turn = False
 
     def start_turn(self):
-        self.turn += 1
         self.in_turn = True
+        self.turn += 1
         Units.units.start_turn()
 
     def end_turn(self):
+        self.in_turn = False
         pass
 
 

@@ -27,11 +27,9 @@ class Unit:
         self.moves_remaining = self.moves
         self.selected = False
         self.alert = False
+        self.name = f"{self.type.value} {self.id}"
 
         _next_id += 1
-
-    def get_name(self):
-        return f"{self.type.value} {self.id}"
 
 
 class Units:
@@ -84,21 +82,11 @@ class Units:
         unit_list = self._unit_dict[old_position]
         unit_list.remove(unit)
 
-    def move_unit(self, unit, delta, universe_size):
-        old_position = unit.position
+    def move_unit(self, unit, delta):
         self.remove_unit(unit)
-        newx = old_position[0] + delta[0]
-        if newx < 0:
-            newx = 0
-        elif newx >= universe_size[0]:
-            newx = universe_size[0] - 1
-        newy = old_position[1] + delta[1]
-        if newy < 0:
-            newy = 0
-        elif newy >= universe_size[1]:
-            newy = universe_size[1] - 1
-        self.add(unit, (newx, newy))
-        return (newx, newy)
+        newpos = (unit.position[0] + delta[0], unit.position[1] + delta[1])
+        self.add(unit, newpos)
+        return newpos
 
 
 units = Units()

@@ -1,16 +1,7 @@
 import pygame
 import random
-from StarTradingCompany import MainScene, GameState
-import logging
-import traceback
-import sys
-import os
 
-logging.basicConfig(
-    filename='/Users/harryculpan/src/StarTradingCompany/myapp.log',
-    level=logging.INFO,
-    format='%(asctime)s %(message)s',
-    datefmt='%m/%d/%Y %I:%M:%S %p')
+from StarTradingCompany import MainScene
 
 
 class MainApp:
@@ -25,12 +16,10 @@ class MainApp:
         clock = pygame.time.Clock()
 
         no_keys_pressed = pygame.key.get_pressed()
-        for key in no_keys_pressed:
-            key = False
 
         active_scene = MainScene.MainScene(width, height)
 
-        while active_scene != None:
+        while active_scene is not None:
             # Event filtering
             filtered_events = []
             for event in pygame.event.get():
@@ -63,8 +52,5 @@ class MainApp:
             clock.tick(fps)
 
 
-try:
-    app = MainApp()
-    app.main_loop(1200, 871, 30)
-except:
-    logging.error(traceback.format_exc())
+app = MainApp()
+app.main_loop(1200, 1071, 30)
